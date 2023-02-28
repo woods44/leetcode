@@ -21,54 +21,35 @@ void vectorPrint(vector<T> &vec)
 class Solution
 {
 public:
-    set<vector<int>> ans;
     vector<vector<int>> threeSum(vector<int> &nums)
     {
-        auto left = nums.begin();
-        auto right = nums.end() - 1;
-        auto mid = left + 1;
-        while (right > (nums.begin() + 1))
+        set<vector<int>> ans;
+        sort(nums.begin(), nums.end());
+        for (int left = 0; left < nums.size(); left++)
         {
-            int a = *mid;
-            int b = *left;
-            int c = *right;
-            if ((a + b + c) == 0)
+            int mid = left + 1;
+            int right = nums.size() - 1;
+            while (mid < right)
             {
-                if (c < b)
+                int sum = nums[left] + nums[right] + nums[mid];
+                if (sum == 0)
                 {
-                    swap(c, b);
-                }
-                if (b < a)
-                {
-                    swap(b, a);
-                }
-                if (c < b)
-                {
-                    swap(c, b);
-                }
-                vector<int> res{a, b, c};
-                ans.insert(res);
-            }
-            if (mid == (right - 1))
-            {
-                if (left >= (right - 2))
-                {
+                    ans.insert({nums[left], nums[mid], nums[right]});
                     right--;
-                    left = nums.begin();
-                    mid = left + 1;
-                    continue;
+                    mid++;
+                }
+                else if (sum < 0)
+                {
+                    mid++;
                 }
                 else
                 {
-                    left++;
-                    mid = left + 1;
-                    continue;
+                    right--;
                 }
             }
-            mid++;
         }
-        vector<vector<int>> r(ans.begin(), ans.end());
-        return r;
+        vector<vector<int>> output(ans.begin(), ans.end());
+        return output;
     }
 };
 
