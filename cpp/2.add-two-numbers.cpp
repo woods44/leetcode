@@ -36,46 +36,67 @@ public:
         {
             int i1 = 0;
             int i2 = 0;
-            if (node == nullptr)
+            if (node != nullptr)
             {
-                i1 = 0;
+                i1 = node->val;
             }
-            if (node2 == nullptr)
+            if (node2 != nullptr)
             {
-                i2 = 0;
+                i2 = node2->val;
             }
             if (node == nullptr && node2 == nullptr)
             {
+                if (c > 0)
+                {
+                    ListNode *tmp = new ListNode(c);
+                    pAns->next = tmp;
+                }
                 break;
             }
             int total = i1 + i2 + c;
+            int val = (total % 10);
             c = total / 10;
-            ListNode tmp = ListNode(total % 10);
+            ListNode *tmp = new ListNode(val);
             if (ans == nullptr)
             {
-                ans = &tmp;
+                ans = tmp;
             }
             if (pAns != nullptr)
             {
-                pAns->next = &tmp;
+                pAns->next = tmp;
             }
-            cout << ans->val << endl;
-            pAns = &tmp;
-            node = node->next;
-            node2 = node2->next;
+            pAns = tmp;
+            if (node != nullptr)
+            {
+                node = node->next;
+            }
+            if (node2 != nullptr)
+            {
+                node2 = node2->next;
+            }
         }
-        ListNode *p = ans;
-        while (p != nullptr)
-        {
-            cout << p->val << ", ";
-            p = p->next;
-        }
-        cout << endl;
+        // ListNode *p = ans;
+        // while (p != nullptr)
+        // {
+        //     cout << p->val << ", ";
+        //     p = p->next;
+        // }
+        // cout << endl;
         return ans;
     }
 };
 // int main()
 // {
+//     ListNode tmp = ListNode(3);
+//     ListNode tmp2 = ListNode(4, &tmp);
+//     ListNode tmp3 = ListNode(2, &tmp2);
+
+//     ListNode tmp4 = ListNode(3);
+//     ListNode tmp5 = ListNode(4, &tmp4);
+//     ListNode tmp6 = ListNode(2, &tmp5);
+//     Solution s;
+//     s.addTwoNumbers(&tmp3, &tmp6);
+
 //     return 0;
 // }
 // @lc code=end
